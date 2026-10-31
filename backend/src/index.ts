@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
+import { prisma } from "./prisma";
+
 dotenv.config();
 
 const app = express();
@@ -12,6 +14,16 @@ app.use(express.json());
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", message: "Kanban API is running" });
+});
+
+app.get("/db-check", async (_req, res) => {
+  try {
+    const users = await prisma.user.count();
+    res.json({ status: "ok", users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Database connection failed" });
+  }
 });
 
 app.listen(PORT, () => {
