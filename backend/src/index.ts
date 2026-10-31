@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import { prisma } from "./prisma";
+import { authRouter } from "./routes/auth";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3333;
 
 app.use(cors());
 app.use(express.json());
+app.use("/auth", authRouter);
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", message: "Kanban API is running" });
