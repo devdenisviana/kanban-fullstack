@@ -5,6 +5,7 @@ import { useAuth } from "./AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Boards from "./pages/Boards";
+import Kanban from "./pages/Kanban";
 
 function Header() {
   const { t, i18n } = useTranslation();
@@ -59,7 +60,7 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
+            <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
@@ -67,6 +68,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Boards />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/boards/:id"
+          element={
+            <ProtectedRoute>
+              <Kanban />
             </ProtectedRoute>
           }
         />
